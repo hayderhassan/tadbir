@@ -1,0 +1,61 @@
+# Global OS artifacts
+.DS_Store
+Thumbs.db
+
+# IDE/editor folders
+.idea/
+.vscode/
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+!*.code-workspace
+*.vsix
+
+# Backup and swap files
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Lockfiles
+*.lock
+
+# Build artifacts
+build/
+dist/
+target/
+out/
+
+# Environments
+.env*
+.venv/
+venv/
+
+# Node modules
+node_modules/
+
+# Python environments
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Terraform global cache
+.terraform/
+
+# Coverage and test caches
+coverage/
+.pytest_cache/
+.tox/
+.nox/
+htmlcov/

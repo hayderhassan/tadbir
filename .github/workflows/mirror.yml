@@ -1,0 +1,27 @@
+name: Mirror Subfolders (Manual)
+on:
+  workflow_dispatch:
+    inputs:
+      target:
+        description: "What to mirror"
+        required: true
+        type: choice
+        options: [manarah, api, simulator, sirat]
+jobs:
+  mirror:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Split and push
+        run: |
+          case "${{ github.event.inputs.target }}" in
+            manarah) PREFIX="apps/manarah"; REPO="manarah";;
+            api)     PREFIX="services/api"; REPO="tadbir-api";;
+            simulator) PREFIX="services/simulator"; REPO="tadbir-simulator";;
+            sirat)   PREFIX="apps/sirat"; REPO="sirat";;
+          esac
+          git subtree split --prefix="$PREFIX" -b split-branch
+          mkdir mirror && cd mirror && git init
+          git pull ../ split-branch
+          git remote add origin https://github.com/hayderhassan/$REPO.git
+          git push -u origin HEAD:main --force

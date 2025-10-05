@@ -1,0 +1,85 @@
+# Global OS artifacts
+.DS_Store
+Thumbs.db
+
+# IDE/editor folders
+.idea/
+.vscode/
+*.iml
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+!*.code-workspace
+*.vsix
+
+# Backup and swap files
+*.bak
+*.gho
+*.ori
+*.orig
+*.tmp
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Lockfiles
+*.lock
+
+# Build artifacts
+build/
+dist/
+target/
+out/
+
+# Environments
+.env*
+.venv/
+venv/
+
+# Gradle files
+.gradle/
+
+# Local configuration file (sdk path, etc)
+local.properties
+*.ipr
+*.iws
+
+# Android Studio generated files and folders
+captures/
+.externalNativeBuild/
+.cxx/
+*.aab
+*.ap_
+*.apk
+output.json
+output-metadata.json
+generated/
+navigation.xml
+*.class
+
+# IntelliJ
+misc.xml
+deploymentTargetDropDown.xml
+render.experimental.xml
+
+# Kotlin DSL build scripts
+*.gradle.kts
+
+# Keystore files
+*.jks
+*.keystore
+
+# Google Services (e.g. APIs or Firebase)
+google-services.json
+
+# Android Profiling
+*.hprof
+
+# NDK / CMake
+obj/
+*.so

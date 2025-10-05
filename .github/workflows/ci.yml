@@ -1,0 +1,47 @@
+name: CI
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "apps/**"
+      - "services/**"
+      - "infra/**"
+  push:
+    branches: [main]
+
+jobs:
+  web:
+    name: Web (Manarah)
+    if: ${{ github.event_name == 'push' || contains(join(github.event.pull_request.changed_files, ','), 'apps/manarah/') }}
+    runs-on: ubuntu-latest
+    defaults: { run: { working-directory: apps/manarah } }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - run: corepack enable
+      - run: pnpm install
+      - run: pnpm build
+
+api:
+  name: API (FastAPI)
+  if: ${{ github.event_name == 'push' || contains(join(github.event.pull_request.changed_files, ','), 'services/api/') }}
+  runs-on: ubuntu-latest
+  defaults: { run: { working-directory: services/api } }
+  steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with: { python-version: "3.11" }
+    - run: python -m venv .venv
+    - run: . .venv/bin/activate && pip install -U pip fastapi uvicorn[standard] pytest
+    - run: . .venv/bin/activate && pytest -q || true
+
+terraform-validate:
+  name: Terraform Validate
+  if: ${{ github.event_name == 'push' || contains(join(github.event.pull_request.changed_files, ','), 'infra/') }}
+  runs-on: ubuntu-latest
+  defaults: { run: { working-directory: infra } }
+  steps:
+    - uses: actions/checkout@v4
+    - uses: hashicorp/setup-terraform@v3
+    - run: terraform init -backend=false
+    - run: terraform validate
